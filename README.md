@@ -10,12 +10,12 @@ GitFlow AI Analytics Platform is a full-stack application that helps development
 
 ### Key Features
 
-- **Real-time GitHub Integration**: Chrome extension captures repository activity and PR data
-- **ML-Powered Conflict Prediction**: Machine learning pipeline analyzes historical data to predict merge conflicts with 87%+ accuracy
-- **ROI Calculation Engine**: Quantifies engineering bottlenecks and calculates potential cost savings
-- **Comprehensive Analytics Dashboard**: Visualizes metrics, trends, and actionable insights
-- **CI/CD Pipeline**: Automated testing, building, and deployment with GitHub Actions
-- **Production Monitoring**: Prometheus, Grafana, and Loki for comprehensive observability
+- Real-time GitHub integration via Chrome extension for repository activity and pull request data capture
+- Machine learning pipeline using Gradient Boosting for merge conflict prediction
+- ROI calculation engine for quantifying engineering bottlenecks and cost analysis
+- Analytics dashboard with visualizations of key metrics and trends
+- Automated CI/CD pipeline with GitHub Actions for testing, building, and deployment
+- Production monitoring stack with Prometheus, Grafana, and Loki
 
 ## Architecture
 
@@ -170,16 +170,20 @@ npm run db:seed  # Optional: seed with sample data
 
 ### 1. Machine Learning Conflict Prediction
 
-The ML pipeline uses Gradient Boosting to predict merge conflicts based on:
+The ML pipeline implements a Gradient Boosting classifier trained on pull request features to predict merge conflicts. The model analyzes:
 
-- **File change patterns**: Number and type of files modified
-- **Code churn**: Lines added/deleted
-- **Branch characteristics**: Branch age, divergence from base
-- **Historical data**: Past conflicts in similar contexts
-- **Developer experience**: Author contribution history
-- **Temporal patterns**: Time-based activity patterns
+- File change patterns (number and type of files modified)
+- Code churn metrics (lines added/deleted)
+- Branch characteristics (age, divergence from base)
+- Historical conflict data in similar contexts
+- Developer experience and contribution history
+- Temporal activity patterns
 
-**Model Performance:**
+**Implementation Details:**
+
+The model architecture uses scikit-learn's Gradient Boosting with 10 engineered features extracted from pull request data. For demonstration purposes, the system uses heuristic-based predictions when historical training data is not available. In a production environment, the model would be trained on actual repository commit and merge history from your organization's GitHub data.
+
+Target model performance metrics:
 - Accuracy: 87.3%
 - Precision: 81.2%
 - Recall: 85.4%
@@ -219,39 +223,38 @@ Quantifies engineering bottlenecks and calculates cost savings:
 
 ### 3. Real-time GitHub Integration
 
-Chrome extension provides seamless GitHub integration:
+The Chrome extension integrates with GitHub's web interface to capture pull request data:
 
-- **Automatic PR Analysis**: Detects when you open a pull request
-- **Conflict Predictions**: Shows ML predictions directly on GitHub
-- **Background Sync**: Sends repository data to backend for analysis
-- **Visual Indicators**: Color-coded risk levels (high/medium/low)
+- Detects pull request pages and extracts metadata (files changed, additions, deletions)
+- Communicates with the backend API via background service worker
+- Displays conflict risk predictions directly on GitHub PR pages
+- Provides color-coded visual indicators for risk levels (high/medium/low)
 
 ### 4. CI/CD Pipeline
 
-Comprehensive GitHub Actions workflows:
+GitHub Actions workflows for automated testing and deployment:
 
 **CI Pipeline** (`.github/workflows/ci.yml`):
-- Backend tests with PostgreSQL & Redis
-- Frontend tests and linting
-- ML pipeline tests with pytest
-- Docker build verification
-- Security scanning with Trivy
+- Backend tests with PostgreSQL and Redis service containers
+- Frontend tests and ESLint validation
+- ML pipeline tests using pytest
+- Docker image build verification for all services
+- Security vulnerability scanning with Trivy
 
 **Deployment Pipeline** (`.github/workflows/deploy.yml`):
-- Automated Docker builds
-- Multi-stage deployments
-- Version tagging
-- Production rollouts
+- Automated Docker image builds and pushes
+- Multi-stage deployments with version tagging
+- Production deployment on main branch merges
 
 ### 5. Monitoring & Observability
 
-Production-ready monitoring stack:
+Observability infrastructure for metrics and logs:
 
-- **Prometheus**: Metrics collection and alerting
-- **Grafana**: Visualization dashboards
-- **Loki**: Log aggregation
-- **Promtail**: Log shipping
-- **Custom Metrics**: Request tracking, error rates, performance
+- Prometheus for metrics collection and alerting
+- Grafana for dashboard visualization
+- Loki for centralized log aggregation
+- Promtail for log shipping from application services
+- Custom application metrics for request tracking, error rates, and performance monitoring
 
 ## Development
 
