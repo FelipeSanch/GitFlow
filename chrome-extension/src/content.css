@@ -1,0 +1,45 @@
+.gitflow-banner {
+  margin: 16px 0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.gitflow-banner-content {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.gitflow-banner-content.high-risk {
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  color: #856404;
+}
+
+.gitflow-banner-content.low-risk {
+  background-color: #d1ecf1;
+  border: 1px solid #0dcaf0;
+  color: #0c5460;
+}
+
+.gitflow-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.gitflow-text {
+  flex: 1;
+}
+
+.gitflow-link {
+  color: #0969da;
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.gitflow-link:hover {
+  text-decoration: underline;
+}
